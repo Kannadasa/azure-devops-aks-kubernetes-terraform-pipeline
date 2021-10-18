@@ -14,6 +14,8 @@ stages:
   jobs:
     - job: TerraformValidateJob
       continueOnError: true
+      variables: 
+       base-output-directory: '$(Agent.BuildDirectory)output'
       steps:
       - task: PublishPipelineArtifact@1
         displayName: Publish Articats
@@ -39,6 +41,8 @@ stages:
           backendAzureRmContainerName: 'testate'
           backendAzureRmKey: 'terraform.tfstate'
           allowTelemetryCollection: false
+          msbuildargs: /p:OutDir=$(base-output-directory)
+
       - task: TerraformCLI@0
         displayName: Terraform Validate Command
         inputs:
