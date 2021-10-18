@@ -17,6 +17,11 @@ stages:
       variables: 
        base-output-directory: '$(Agent.BuildDirectory)output'
       steps:
+      
+      - task: CmdLine@1
+        inputs:
+          script: ls '$(System.DefaultWorkingDirectory)/terraform-manifests'
+
       - task: PublishPipelineArtifact@1
         displayName: Publish Articats
         inputs:
@@ -49,3 +54,5 @@ stages:
             command: 'validate'
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-manifests'
             allowTelemetryCollection: false
+
+ 
