@@ -83,5 +83,17 @@ stages:
            - task: DownloadSecureFile@1
              displayName: Download SSH Key
              inputs:
-              secureFile: 'aks-terraform-devops-ssh-key-ububtu.pub'
+               secureFile: 'aks-terraform-devops-ssh-key-ububtu.pub'
 
+           - task: TerraformCLI@0
+             displayName: TerraformInitForDevAKSCluster
+              inputs:
+                command: 'init'
+                workingDirectory: '$(Pipeline.Workspace)/terraform-manifests-out'
+                backendType: 'azurerm'
+                backendServiceArm: 'terraform-svc'
+                backendAzureRmResourceGroupName: 'terraform-storage-rg'
+                backendAzureRmStorageAccountName: 'terraformkannaxyz'
+                backendAzureRmContainerName: 'testate'
+                backendAzureRmKey: 'aks-$(DEV_ENVIRONMENT).tfstate'
+                allowTelemetryCollection: false
