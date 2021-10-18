@@ -74,7 +74,7 @@ stages:
       displayName: DeployDEVAKSCluster
       pool:
 
-        vmimage: 'ubuntu-lates'
+        vmimage: 'ubuntu-latest'
       environment: $(DEV_ENVIRONMENT)
       strategy:
        runOnce:
