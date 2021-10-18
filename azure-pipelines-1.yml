@@ -90,7 +90,7 @@ stages:
              displayName: TerraformInitForDevAKSCluster
              inputs:
               command: 'init'
-              workingDirectory: '$(Pipeline.Workspace)/terraform-manifests-out'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-manifests-out'
               backendType: 'azurerm'
               backendServiceArm: 'terraform-svc'
               backendAzureRmResourceGroupName: 'terraform-storage-rg'
@@ -102,7 +102,7 @@ stages:
              displayName: TerraformPlan
              inputs:
                 command: 'plan'
-                workingDirectory: '$(Pipeline.Workspace)/terraform-manifests-out'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-manifests-out'
                 environmentServiceName: 'terraform-svc'
                 commandOptions: '-var ssh_public_key=$(sshkey.secureFilePath) -var environment=$(DEV_ENVIRONMENT) -out $(Pipeline.Workspace)/terraform-manifests-out/$(DEV_ENVIRONMENT)-$(Build.BuildId).out'
                 allowTelemetryCollection: false
@@ -110,7 +110,7 @@ stages:
            - task: TerraformCLI@0
              inputs:
               command: 'apply'
-              workingDirectory: '$(Pipeline.Workspace)/terraform-manifests-out'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-manifests-out'
               environmentServiceName: 'terraform-svc'
               commandOptions: '(Pipeline.Workspace)/terraform-manifests-out/$(DEV_ENVIRONMENT)-$(Build.BuildId).out'
               allowTelemetryCollection: false
