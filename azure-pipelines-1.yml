@@ -23,8 +23,7 @@ stages:
   jobs:
     - job: TerraformValidateJob
       continueOnError: true
-      variables: 
-       base-output-directory: '$(Agent.BuildDirectory)output'
+
       steps:
 
       - task: PublishPipelineArtifact@1
